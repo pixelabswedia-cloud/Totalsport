@@ -79,6 +79,47 @@
             </div>
         </div>
     </main>
+<script>
+    // Konfigurasi API (Contoh menggunakan API-Sports)
+    const API_KEY = 'YOUR_API_KEY_HERE'; // Nanti kamu daftar di dashboard.api-sports.io
+    const tickerContainer = document.getElementById('score-ticker');
 
+    async function fetchLiveScores() {
+        try {
+            // Kita coba tarik data NBA (League ID 12 untuk NBA di API-Sports)
+            // Untuk demo, kita buat simulasi data agar kamu bisa lihat hasilnya langsung
+            const games = [
+                { league: 'NBA', home: 'LAL', away: 'GSW', scoreHome: 102, scoreAway: 110, status: 'Final' },
+                { league: 'NFL', home: 'KC', away: 'BUF', scoreHome: 21, scoreAway: 17, status: 'Q3' },
+                { league: 'NBA', home: 'BOS', away: 'MIA', scoreHome: 88, scoreAway: 92, status: 'Live' }
+            ];
+
+            // Bersihkan kontainer
+            tickerContainer.innerHTML = '';
+
+            games.forEach(game => {
+                const color = game.league === 'NBA' ? 'text-red-500' : 'text-blue-500';
+                const gameElement = `
+                    <div class="flex space-x-2 border-r border-gray-700 pr-4 shrink-0">
+                        <span class="font-bold ${color} underline">${game.league}</span>
+                        <span>${game.away} ${game.scoreAway}</span>
+                        <span class="font-bold">@ ${game.home} ${game.home === 'LAL' || game.scoreHome > game.scoreAway ? game.scoreHome : game.scoreHome}</span>
+                        <span class="text-gray-400 text-xs self-center">${game.status}</span>
+                    </div>
+                `;
+                tickerContainer.innerHTML += gameElement;
+            });
+        } catch (error) {
+            console.error("Gagal mengambil skor:", error);
+            tickerContainer.innerHTML = "Live scores temporarily unavailable";
+        }
+    }
+
+    // Jalankan saat halaman dimuat
+    fetchLiveScores();
+    
+    // Update setiap 5 menit agar tidak membebani limit API gratisan
+    setInterval(fetchLiveScores, 300000);
+</script>
 </body>
 </html>
