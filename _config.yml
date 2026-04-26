@@ -1,0 +1,18 @@
+title: SportsHub Pro
+email: your-email@example.com
+description: >-
+  Professional NFL & NBA Analysis for Global Audience.
+baseurl: "" 
+url: "https://username.github.io" # Ganti dengan URL kamu
+
+# Pengaturan agar Jekyll tidak error
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Plugins yang didukung GitHub Pages
+plugins:
+  - jekyll-seo-tag
+  - jekyll-feed
